@@ -935,7 +935,7 @@ function getFiltersFromURL() {
     selectedPreviousPlayers: params.get('previous_players')?.split(',').filter(Boolean) || [],
     selectedMinAge: minAgeParam ? { min: Number(minAgeParam.split('-')[0]), max: Number(minAgeParam.split('-')[1]) } : null,
     selectedNumPlays: numPlaysParam ? { min: Number(numPlaysParam.split('-')[0]), max: Number(numPlaysParam.split('-')[1]) } : null,
-    sortBy: params.get('sort') || 'name',
+    sortBy: params.get('sort') || 'rank',
     page: Number(params.get('page')) || 1
   };
 }
@@ -950,7 +950,7 @@ function getFiltersFromUI() {
   const selectedPreviousPlayers = getSelectedValues('previous_players');
   const selectedMinAge = getSelectedRange('min_age');
   const selectedNumPlays = getSelectedRange('numplays');
-  const sortBy = document.getElementById('sort-select')?.value || 'name';
+  const sortBy = document.getElementById('sort-select')?.value || 'rank';
 
   return {
     query,
@@ -979,7 +979,7 @@ function updateURLWithFilters(filters) {
   if (filters.selectedPreviousPlayers?.length) params.set('previous_players', filters.selectedPreviousPlayers.join(','));
   if (filters.selectedMinAge) params.set('min_age', `${filters.selectedMinAge.min}-${filters.selectedMinAge.max}`);
   if (filters.selectedNumPlays) params.set('numplays', `${filters.selectedNumPlays.min}-${filters.selectedNumPlays.max}`);
-  if (filters.sortBy && filters.sortBy !== 'name') params.set('sort', filters.sortBy);
+  if (filters.sortBy && filters.sortBy !== 'rank') params.set('sort', filters.sortBy);
   if (filters.page && filters.page > 1) params.set('page', filters.page);
 
   const newUrl = `${window.location.pathname}?${params.toString()}`;
